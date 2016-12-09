@@ -4,32 +4,44 @@
 </head>
 <body>
 <?php
-//値を習得
+
 if (isset($_POST["selOpe"])){
-$a = $_POST['txtA'];
-$b = $_POST['txtB'];
-$ope = $_POST['selOpe'];
+	$num1 = $_POST['txtA'];
+	$num2 = $_POST['txtB'];
+	$ope  =  $_POST['selOpe'];
 
-//セレクトボックスによって処理を変える
-switch($ope){
-	case "+":
-	$answer = $a+$b;
-		break;	
-	case "-":
-	$answer = $a-$b;
-		break;
-	case "×":
-	$answer = $a*$b;
-		break;
-	case "÷":
-	$answer = $a/$b;
-		break;
-		default;
-		break;
-}
+	if(preg_match('|^-?\d+(\.\d+)?$|', $num1) && preg_match('|^-?\d+(\.\d+)?$|', $num2)){   //数字かどうかを判別する(マイナス,小数点含む)
 
-//計算結果を表示
-print($a."".$ope."".$b."=".$answer."\n");
+	switch($ope){
+		case "+":
+		$answer = $num1 + $num2;
+			break;	
+		case "-":
+		$answer = $num1 - $num2;
+			break;
+		case "×":
+		$answer = $num1 * $num2;
+			break;
+		case "÷":
+			
+			if($_POST['txtB'] == 0 and $_POST['selOpe'] == "÷"){//0で割り算をできないようにする
+	                  $answer = null;
+	                  echo '0以外の数字を入れてください';
+	                  echo '<br>';
+	                  echo '<a href="#" onclick="history.back(); return false;">前の画面に戻る</a>';
+	                  exit;
+			}else{
+				$answer = $num1 / $num2;
+		}
+			break;
+			default;
+			break;
+	}
+
+ 		print($num1." ".$ope." ".$num2." = ".$answer."\n");　//""で空白を入れる
+ 	}else{
+ 		print "値を入れてください";
+ 	}
 }
 ?>
 
