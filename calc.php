@@ -38,7 +38,7 @@ if (isset($_POST["selOpe"])){
 			break;
 	}
 
- 		print($num1." ".$ope." ".$num2." = ".$answer."\n");　//""で空白を入れる
+ 		print($num1." ".$ope." ".$num2." = ".$answer."\n");//""で空白を入れる
  	}else{
  		print "値を入れてください";
  	}
